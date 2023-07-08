@@ -19,7 +19,9 @@ export const ContactList = () => {
 
   const dispatch = useDispatch();
 
-  const removeContact = (id) => dispatch(deleteContact(id));
+  const removeContact = (id) => {
+    return dispatch(deleteContact(id));
+  };
 
   const contacts = getFilteredContacts();
 
