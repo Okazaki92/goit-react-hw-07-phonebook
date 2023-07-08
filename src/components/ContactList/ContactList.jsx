@@ -1,7 +1,7 @@
 import propTypes from "prop-types";
 import styles from "./ConstactList.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/operations";
 import { selectContactsList, selectFilter } from "../../redux/selectors";
 
 export const ContactList = () => {
@@ -19,21 +19,20 @@ export const ContactList = () => {
 
   const dispatch = useDispatch();
 
-  const removeContact = (id) => {
-    return dispatch(deleteContact(id));
-  };
+  const removeContact = (id) => dispatch(deleteContact(id));
+
   const contacts = getFilteredContacts();
-  console.log(contacts);
+
   return (
     <div>
       {!contacts.length ? (
         <div className="noContacts">Sorry no contact with this search!</div>
       ) : (
         <ul className={styles.list}>
-          {contacts.map(({ id, name, number }) => (
+          {contacts.map(({ id, name, phone }) => (
             <li className={styles.list_item} key={id}>
               <p className="list_text">{name}</p>
-              <p className="list_text">{number}</p>
+              <p className="list_text">{phone}</p>
               <button
                 className={styles.list_button}
                 type="submit"
@@ -48,6 +47,7 @@ export const ContactList = () => {
     </div>
   );
 };
+
 ContactList.propTypes = {
   contacts: propTypes.arrayOf(
     propTypes.shape({
